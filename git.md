@@ -3,6 +3,7 @@
 
 ##.git文件夹分为暂存区和仓库，文件夹外面的被称为工作区
 
+      //初始化.git文件
       git innit （会在当前路径下创建一个隐藏文件夹.git）
 
 >备份
@@ -24,6 +25,7 @@
 添加项目或者忽略文件
 在项目中有一些文件是不需要提交的，我们需要把它忽略掉
 需要在.git文件夹所在目录新建一个名为.gitignore的文件<br>
+/abc 忽略abc文件夹<br>
 /*.doc 忽略掉所有的doc文件<br>
 /index.html 这样是无效的，因为项目已经被保存在仓库了，需要在没被放到暂存区的时候进行<br>
 .git index存放的是暂存区的文件，object存放的是仓库的文件
@@ -39,6 +41,43 @@ git log（可以查看每一次提交的日志）<br>
 git log --oneline（在一行内输出我们的日志）
 
 ### 版本回退
-git reset --hard Head（回退到上一次提交的状态）
-git reset --hard Head~1（回退到上上次提交的状态）
+git reset --hard Head（回退到上一次提交的状态）<br>
+git reset --hard Head~1（回退到上上次提交的状态）<br>
+理解，可以理解为Head~0为最新一次的版本，然后依次类推
+通过git reflog 命令可以查看之前所有版本切换的操作记录，可以通过这个命令得到的版本号回退到指定的版本<br>
+git reset --hard 版本号<br>
+
+###分支
+master（主分支），提交但是不共享给别人
+不在master分支里写，创建新的分支的时候，或者切换分支的时候要保证工作区暂存区是干净的（已经存进去了）可以用git status看，clean就是干净的
+
+    git branch dev（创建副分支）
+    git branch（查看所有分支）
+    //*号显示的分支是主分支，要切换到副分支
+    git checkout master//切换到主分支
+    git merge dev //让dev和主分支合并
+    git branch -d 分支名  //删除指定分支，-d表示要执行删除操作
+
+###冲突 git提交中的冲突
+如果git不能自动合并分支，就会有冲突（CONFICT），我们需要手动解决冲突并且再次提交<br>
+什么情况下才会有冲突？<br>
+test的最新代码是基于master的最新的代码进行修改的<br>
+不会冲突：同一个文件同一行代码要保存一致<br>
+如何避免：<br>
+1.二个分支不要修改同一个文件<br>
+2.master不要写代码，只是用来合并文件<br>
+
+###上传push
+git push 地址 master <br>
+git push -u origin //将其与master建立个关联<br>
+//上传是可以使用一些简化的命令，将远程服务器地址写成变量名的形式<br>
+***简化上传***<br>
+git remote add [变量名] [远程服务器地址] <br>
+get remote add origin 地址，这样写之后就可以使用origin来代替后面的地址了，并且还可以进一步的简化，在push是加上-u参数，就会默认建立本地当前分支与远程分支的关联，下一次push的时候就不需要输入分支的名字了 
+
+##ssh
+###git 使用ssh上传代码与github
+>git生成公钥和私钥
+ssh-keygen -t rsa
+生成私钥的会在c盘用户里的.ssh文件里的id_rsa里，公钥，id_rsa.pub放在服务器上
 
