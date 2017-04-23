@@ -69,7 +69,7 @@ test的最新代码是基于master的最新的代码进行修改的<br>
 
 ###上传push
 git push 地址 master <br>
-git push -u origin //将其与master建立个关联<br>
+git push -u origin master//将其与master建立个关联<br>
 //上传是可以使用一些简化的命令，将远程服务器地址写成变量名的形式<br>
 ***简化上传***<br>
 git remote add [变量名] [远程服务器地址] <br>
